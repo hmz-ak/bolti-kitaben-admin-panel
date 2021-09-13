@@ -8,27 +8,22 @@ import {
 import React, { useState } from "react";
 import categoryService from "../services/CategoryService";
 import { toast } from "react-toastify";
+import { useStyles } from "./styles";
 
 const AddCategory = () => {
+  const classes = useStyles();
+
   const [name, setName] = useState("");
   return (
     <div>
       <Typography align="center" variant="h3">
         ADD CATEGORY
       </Typography>
-      <Container
-        style={{
-          marginTop: 40,
-          border: "1px solid black",
-          padding: 70,
-          borderRadius: 50,
-        }}
-        maxWidth="sm"
-      >
+      <Container className={classes.container} maxWidth="sm">
         <Grid align="center" container>
           <Grid item xs={12}>
             <TextField
-              style={{ width: "70%", marginBottom: 20 }}
+              className={classes.textFieldStyle}
               id="outlined-basic"
               label="Enter Category"
               variant="outlined"
