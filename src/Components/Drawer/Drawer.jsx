@@ -14,6 +14,8 @@ import { useStyles } from "./styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useTheme } from "@material-ui/core/styles";
 import ListComponent from "./ListComponent";
+import AddAudioBook from "../AddAudioBook/AddAudioBook";
+import { Route, Switch } from "react-router-dom";
 
 export default function NavDrawer(props) {
   const { window } = props;
@@ -91,7 +93,9 @@ export default function NavDrawer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        content will come here
+        <Switch>
+          <Route path="/addAudioBook" render={() => <AddAudioBook />} />
+        </Switch>
       </main>
     </div>
   );

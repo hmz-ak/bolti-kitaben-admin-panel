@@ -14,8 +14,9 @@ import {
 } from "@material-ui/icons";
 
 import React from "react";
+import { withRouter } from "react-router-dom";
 
-const ListComponent = () => {
+const ListComponent = (props) => {
   return (
     <List>
       <ListItem button>
@@ -37,7 +38,7 @@ const ListComponent = () => {
         <ListItemText primary="Categories" />
       </ListItem>
       <Divider />
-      <ListItem button>
+      <ListItem onClick={() => props.history.push("/addAudioBook")} button>
         <ListItemIcon>
           <AddBox />
         </ListItemIcon>
@@ -60,4 +61,4 @@ const ListComponent = () => {
   );
 };
 
-export default ListComponent;
+export default withRouter(ListComponent);
