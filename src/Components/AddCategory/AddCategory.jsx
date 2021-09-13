@@ -5,9 +5,12 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
+import categoryService from "../services/CategoryService";
+import { toast } from "react-toastify";
 
 const AddCategory = () => {
+  const [name, setName] = useState("");
   return (
     <div>
       <Typography align="center" variant="h3">
@@ -29,6 +32,8 @@ const AddCategory = () => {
               id="outlined-basic"
               label="Enter Category"
               variant="outlined"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
             />
           </Grid>
           <Grid item xs={12}>
@@ -37,7 +42,21 @@ const AddCategory = () => {
               size="medium"
               color="primary"
               variant="contained"
-              onClick={() => {}}
+              onClick={() => {
+                categoryService
+                  .addCategory(name)
+                  .then(() => {
+                    setName("");
+                    toast.success("Category added successfully!", {
+                      position: toast.POSITION.TOP_CENTER,
+                    });
+                  })
+                  .catch((err) => {
+                    toast.error(err?.response.data, {
+                      position: toast.POSITION.TOP_CENTER,
+                    });
+                  });
+              }}
             >
               Add Category
             </Button>
