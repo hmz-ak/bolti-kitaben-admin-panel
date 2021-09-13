@@ -44,7 +44,7 @@ const ListComponent = (props) => {
         </ListItemIcon>
         <ListItemText primary="Add Audio Book" />
       </ListItem>
-      <ListItem button>
+      <ListItem onClick={() => props.history.push("/addCategory")} button>
         <ListItemIcon>
           <Category />
         </ListItemIcon>
