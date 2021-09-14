@@ -1,10 +1,6 @@
 import GenericService from "./GenericService";
 
 class CategoryService extends GenericService {
-  constructor() {
-    super();
-  }
-
   getCategory = () => this.get("/api/categories");
 
   getSingleCategory = (id) => this.get("/api/categories/" + id);

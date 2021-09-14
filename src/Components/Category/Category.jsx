@@ -18,7 +18,7 @@ import { toast } from "react-toastify";
 
 import SearchBar from "material-ui-search-bar";
 import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 import categoryService from "../services/CategoryService";
 
@@ -27,15 +27,6 @@ const useStyles = makeStyles({
   //   minWidth: 650,
   // },
 });
-
-const useStyles2 = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      width: "8ch",
-      height: 40,
-    },
-  },
-}));
 
 const Category = (props) => {
   const [rows, setRows] = useState([]);
@@ -52,7 +43,6 @@ const Category = (props) => {
         setRows(data);
         setRowsAfterSearch(data);
         console.log(data);
-        console.log(rows);
       })
       .catch((err) => {
         console.log(err);
@@ -164,7 +154,7 @@ const Category = (props) => {
                                 });
                               });
                           } else {
-                            // They clicked no
+                            // no is clicked
                           }
                         }}
                         style={{ backgroundColor: "red", color: "white" }}
