@@ -31,7 +31,7 @@ const ListComponent = (props) => {
         </ListItemIcon>
         <ListItemText primary="Users" />
       </ListItem>
-      <ListItem button>
+      <ListItem onClick={() => props.history.push("/categories")} button>
         <ListItemIcon>
           <Category />
         </ListItemIcon>

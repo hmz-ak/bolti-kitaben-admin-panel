@@ -23,7 +23,7 @@ const AddCategory = () => {
         <Grid align="center" container>
           <Grid item xs={12}>
             <TextField
-              className={classes.textFieldStyle}
+              className={classes.textField}
               id="outlined-basic"
               label="Enter Category"
               variant="outlined"

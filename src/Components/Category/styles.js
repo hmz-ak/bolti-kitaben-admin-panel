@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -7,9 +8,6 @@ const useStyles = makeStyles((theme) => ({
     padding: 70,
     borderRadius: 50,
   },
-  textFieldStyle: {
-    width: "70%",
-    marginBottom: 20,
-  },
+  textField: { width: "70%", marginBottom: 20 },
 }));
 export { useStyles };

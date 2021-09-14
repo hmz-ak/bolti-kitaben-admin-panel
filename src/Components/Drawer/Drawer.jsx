@@ -16,7 +16,8 @@ import { useTheme } from "@material-ui/core/styles";
 import ListComponent from "./ListComponent";
 import AddAudioBook from "../AddAudioBook/AddAudioBook";
 import { Route, Switch } from "react-router-dom";
-import AddCategory from "../AddCategory/AddCategory";
+import AddCategory from "../Category/AddCategory";
+import Category from "../Category/Category";
 
 export default function NavDrawer(props) {
   const { window } = props;
@@ -97,6 +98,7 @@ export default function NavDrawer(props) {
         <Switch>
           <Route path="/addAudioBook" render={() => <AddAudioBook />} />
           <Route path="/addCategory" render={() => <AddCategory />} />
+          <Route path="/categories" render={() => <Category />} />
         </Switch>
       </main>
     </div>
