@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import {
-  IconButton,
   Table,
   TableContainer,
   TableHead,
@@ -14,6 +13,9 @@ import {
   Paper,
   TableBody,
 } from "@material-ui/core";
+import { EditText } from "react-edit-text";
+import { toast } from "react-toastify";
+
 import SearchBar from "material-ui-search-bar";
 import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -95,9 +97,9 @@ const Category = (props) => {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Number</TableCell>
-                <TableCell align="left">Name</TableCell>
-                <TableCell align="left">Edit/Delete</TableCell>
+                <TableCell>No.</TableCell>
+                <TableCell align="left">Category Name</TableCell>
+                <TableCell align="left">Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -113,32 +115,54 @@ const Category = (props) => {
                     {index}
                   </TableCell>
 
-                  <TableCell align="left">{row.name}</TableCell>
+                  <TableCell align="left">
+                    <EditText
+                      id="customer"
+                      style={{ width: 200, cursor: "pointer" }}
+                      placeholder={row.name}
+                      onSave={({ value }) => {
+                        categoryService
+                          .updateCategory(row._id, value)
+                          .then(() => {
+                            toast.success("updated!", {
+                              position: toast.POSITION.TOP_CENTER,
+                            });
+                            setTimeout(function () {
+                              window.location.reload();
+                            }, 1000);
+                          })
+                          .catch((err) => {
+                            toast.error(err?.response.data, {
+                              position: toast.POSITION.TOP_CENTER,
+                            });
+                          });
+                      }}
+                      type="text"
+                      defaultValue={row.name}
+                    />
+                  </TableCell>
 
                   <TableCell align="left">
                     <ButtonGroup disableElevation variant="contained">
                       <Button
-                        onClick={(e) => {
-                          props.history.push("/editStock/" + row._id);
-                        }}
-                        style={{ backgroundColor: "gold" }}
-                      >
-                        Edit
-                      </Button>
-                      <Button
+                        size="small"
                         onClick={(e) => {
                           if (window.confirm("Press Ok to confirm deletion")) {
-                            // stockService
-                            //   .deleteStock(row._id)
-                            //   .then((data) => {
-                            //     toast.success("deleted Successfully", {
-                            //       position: toast.POSITION.TOP_CENTER,
-                            //     });
-                            //     props.history.push("/");
-                            //   })
-                            //   .catch((err) => {
-                            //     console.log(err);
-                            //   });
+                            categoryService
+                              .deleteCategory(row._id)
+                              .then(() => {
+                                toast.success("deleted Successfully", {
+                                  position: toast.POSITION.TOP_CENTER,
+                                });
+                                setTimeout(function () {
+                                  window.location.reload();
+                                }, 1000);
+                              })
+                              .catch((err) => {
+                                toast.error(err?.response.data, {
+                                  position: toast.POSITION.TOP_CENTER,
+                                });
+                              });
                           } else {
                             // They clicked no
                           }

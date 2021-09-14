@@ -11,10 +11,9 @@ class CategoryService extends GenericService {
 
   addCategory = (name) => this.post("/api/categories", { name });
 
-  deleteCategory = (_id) => this.delete("/api/categories/delete/" + _id);
+  deleteCategory = (_id) => this.delete("/api/categories/" + _id);
 
-  updateCategory = (_id, formData, config) =>
-    this.putData("/api/categories/update/" + _id, formData, config);
+  updateCategory = (_id, name) => this.put("/api/categories/" + _id, { name });
 }
 
 let categoryService = new CategoryService();
