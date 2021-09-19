@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
@@ -40,7 +40,6 @@ const MenuProps = {
   },
 };
 
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -50,22 +49,20 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function MultipleSelect() {
+export default function MultipleSelect({ personName, setPersonName }) {
   const classes = useStyles();
   const theme = useTheme();
-  const [categoryData,setCategoryData]=useState([]);
-  const [personName, setPersonName] = React.useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+
   useEffect(() => {
-    categoryService.getCategory()
+    categoryService
+      .getCategory()
       .then((data) => {
-        setCategoryData(data)
-        console.log(data)
+        setCategoryData(data);
+        console.log(data);
       })
       .catch((err) => console.log(err));
   }, []);
-  const handleChange = (event) => {
-    setPersonName(event.target.value);
-  };
 
   // const handleChangeMultiple = (event) => {
   //   const { options } = event.target;
@@ -87,7 +84,7 @@ export default function MultipleSelect() {
           id="demo-mutiple-chip"
           multiple
           value={personName}
-          onChange={handleChange}
+          onChange={setPersonName}
           input={<Input id="select-multiple-chip" />}
           renderValue={(selected) => (
             <div className={classes.chips}>
@@ -98,7 +95,7 @@ export default function MultipleSelect() {
           )}
           MenuProps={MenuProps}
         >
-          {categoryData?.map((name,index) => (
+          {categoryData?.map((name, index) => (
             <MenuItem
               key={index}
               value={name.name}

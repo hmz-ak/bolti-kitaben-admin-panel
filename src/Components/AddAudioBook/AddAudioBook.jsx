@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import { isMobile } from "react-device-detect";
-import { Container, Grid, TextField } from "@material-ui/core";
+import { Button, Container, Grid, TextField } from "@material-ui/core";
 import CategorySelect from "./CategorySelect";
-import ImageInput from "../ImageInput/ImageInput"
+import ImageInput from "../ImageInput/ImageInput";
+import bookService from "../services/BookService";
 const AddAudioBook = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
-  const [img, setImg] = useState(null);
-
+  const [image, setImg] = useState(null);
+  const [personName, setPersonName] = React.useState([]);
+  const handleChange = (event) => {
+    setPersonName(event.target.value);
+  };
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
   return (
     <Container maxWidth="md">
       <Grid container>
@@ -36,7 +45,11 @@ const AddAudioBook = () => {
               />
             </Grid>
             <Grid item xs={12} lg={4}>
-              <CategorySelect />
+              <CategorySelect
+                personName={personName}
+                setPersonName={handleChange}
+              />
+              {console.log(personName)}
             </Grid>
 
             <Grid xs={12} item>
@@ -52,14 +65,36 @@ const AddAudioBook = () => {
               />
             </Grid>
             <Grid item xs={12}>
-               <ImageInput
+              <ImageInput
                 nameAttr={"BookImage"}
                 idAttr={"book-img"}
                 uploadText={"jpeg/jpg/png/gif"}
-                getter={img}
+                getter={image}
                 setter={(e) => setImg(e.target.files[0])}
                 helperText={", size limit: 40 mb"}
               />
+            </Grid>
+            <Grid align="center" item xs={12}>
+              <Button
+                style={{ width: "30%", marginTop: 30 }}
+                color="primary"
+                variant="contained"
+                onClick={() => {
+                  console.log(image);
+                  const formData = new FormData();
+                  formData.append("title", title);
+                  formData.append("author", author);
+                  formData.append("image", image);
+                  formData.append("description", description);
+                  formData.append("personName", personName);
+                  bookService
+                    .addBook(formData, config)
+                    .then((res) => console.log(res))
+                    .catch((err) => console.log(err));
+                }}
+              >
+                Add Book
+              </Button>
             </Grid>
           </Grid>
         </Grid>
