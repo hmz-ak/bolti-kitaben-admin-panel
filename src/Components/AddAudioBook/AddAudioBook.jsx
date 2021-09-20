@@ -4,6 +4,8 @@ import { Button, Container, Grid, TextField } from "@material-ui/core";
 import CategorySelect from "./CategorySelect";
 import ImageInput from "../ImageInput/ImageInput";
 import bookService from "../services/BookService";
+import { toast } from "react-toastify";
+
 const AddAudioBook = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -86,11 +88,25 @@ const AddAudioBook = () => {
                   formData.append("author", author);
                   formData.append("image", image);
                   formData.append("description", description);
-                  formData.append("personName", personName);
+                  formData.append("categories", personName);
                   bookService
                     .addBook(formData, config)
-                    .then((res) => console.log(res))
-                    .catch((err) => console.log(err));
+                    .then((res) => {
+                      console.log(res);
+                      toast.success("Book Added Successfully", {
+                        position: toast.POSITION.TOP_CENTER,
+                      });
+                      setTitle("");
+                      setAuthor("");
+                      setImg(null);
+                      setDescription("");
+                      setPersonName([]);
+                    })
+                    .catch((err) => {
+                      toast.error(err?.response.data, {
+                        position: toast.POSITION.TOP_CENTER,
+                      });
+                    });
                 }}
               >
                 Add Book
