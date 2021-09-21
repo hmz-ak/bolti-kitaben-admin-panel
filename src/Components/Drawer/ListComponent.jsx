@@ -11,6 +11,7 @@ import {
   Home,
   Store,
   Category,
+  MenuBook,
 } from "@material-ui/icons";
 
 import React from "react";
@@ -36,6 +37,12 @@ const ListComponent = (props) => {
           <Category />
         </ListItemIcon>
         <ListItemText primary="Categories" />
+      </ListItem>
+      <ListItem onClick={() => props.history.push("/books")} button>
+        <ListItemIcon>
+          <MenuBook />
+        </ListItemIcon>
+        <ListItemText primary="Audio Books" />
       </ListItem>
       <Divider />
       <ListItem onClick={() => props.history.push("/addAudioBook")} button>

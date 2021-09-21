@@ -1,11 +1,11 @@
 import GenericService from "./GenericService";
 
 class BookService extends GenericService {
-  getBook = () => this.get("/api/books");
+  getBook = () => this.get("/api/books/");
 
   getSingleBook = (id) => this.get("/api/books/" + id);
 
-  addBook = (formData, config) => this.post("/api/books", formData, config);
+  addBook = (formData, config) => this.post("/api/books/", formData, config);
 
   deleteBook = (_id) => this.delete("/api/books/" + _id);
 

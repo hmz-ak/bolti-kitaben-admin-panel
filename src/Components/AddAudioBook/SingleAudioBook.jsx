@@ -5,8 +5,9 @@ import CategorySelect from "./CategorySelect";
 import ImageInput from "../ImageInput/ImageInput";
 import bookService from "../services/BookService";
 import { toast } from "react-toastify";
-
-const AddAudioBook = () => {
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+const SingleAudioBook = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [type, setType] = useState("");
@@ -15,8 +16,21 @@ const AddAudioBook = () => {
   const [personName, setPersonName] = React.useState([]);
   const handleChange = (event) => {
     setPersonName(event.target.value);
-    console.log(personName);
   };
+  const id = useParams();
+  useEffect(() => {
+    console.log(id.id);
+    bookService
+      .getSingleBook(id.id)
+      .then((data) => {
+        console.log(data);
+        setTitle(data.title);
+        setAuthor(data.author);
+        setDescription(data.description);
+        setPersonName([...data.categories]);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   const config = {
     headers: {
       "content-type": "multipart/form-data",
@@ -89,9 +103,7 @@ const AddAudioBook = () => {
                   formData.append("author", author);
                   formData.append("image", image);
                   formData.append("description", description);
-                  for (var i = 0; i < personName.length; i++) {
-                    formData.append("categories[]", personName[i]);
-                  }
+                  formData.append("categories", personName);
                   // for (var key of formData.entries()) {
                   //   console.log(key[0] + ", " + key[1]);
                   // }
@@ -125,4 +137,4 @@ const AddAudioBook = () => {
   );
 };
 
-export default AddAudioBook;
+export default SingleAudioBook;

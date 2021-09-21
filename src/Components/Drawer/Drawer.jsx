@@ -18,6 +18,8 @@ import AddAudioBook from "../AddAudioBook/AddAudioBook";
 import { Route, Switch } from "react-router-dom";
 import AddCategory from "../Category/AddCategory";
 import Category from "../Category/Category";
+import ViewAudioBooks from "../AddAudioBook/ViewAudioBooks";
+import SingleAudioBook from "../AddAudioBook/SingleAudioBook";
 
 export default function NavDrawer(props) {
   const { window } = props;
@@ -99,6 +101,8 @@ export default function NavDrawer(props) {
           <Route path="/addAudioBook" render={() => <AddAudioBook />} />
           <Route path="/addCategory" render={() => <AddCategory />} />
           <Route path="/categories" render={() => <Category />} />
+          <Route path="/books" render={() => <ViewAudioBooks />} />
+          <Route path="/:id" render={() => <SingleAudioBook />} />
         </Switch>
       </main>
     </div>
