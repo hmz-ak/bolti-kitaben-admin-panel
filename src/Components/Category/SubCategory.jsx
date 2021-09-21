@@ -21,9 +21,7 @@ import SearchBar from "material-ui-search-bar";
 import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 import { makeStyles } from "@material-ui/core/styles";
 
-import categoryService from "../services/CategoryService";
-import SubCategory from "./SubCategory";
-import Genre from "./Genre";
+import subCategoryService from "../services/SubCategoryService";
 
 const useStyles = makeStyles({
   // table: {
@@ -31,7 +29,7 @@ const useStyles = makeStyles({
   // },
 });
 
-const Category = (props) => {
+const SubCategory = (props) => {
   const [rows, setRows] = useState([]);
   const [rowsAfterSearch, setRowsAfterSearch] = useState([]);
   const [searched, setSearched] = useState("");
@@ -40,8 +38,8 @@ const Category = (props) => {
 
   const classes = useStyles();
   useEffect(() => {
-    categoryService
-      .getCategory()
+    subCategoryService
+      .getSubCategory()
       .then((data) => {
         setRows(data);
         setRowsAfterSearch(data);
@@ -78,7 +76,8 @@ const Category = (props) => {
 
   return (
     <>
-      <InputLabel style={{ padding: 10 }}>Parent Category Table</InputLabel>
+      <InputLabel style={{ padding: 10 }}>Sub Category Table</InputLabel>
+
       <Paper>
         <SearchBar
           value={searched}
@@ -115,8 +114,8 @@ const Category = (props) => {
                       style={{ width: 200, cursor: "pointer" }}
                       placeholder={row.name}
                       onSave={({ value }) => {
-                        categoryService
-                          .updateCategory(row._id, value)
+                        subCategoryService
+                          .updateSubCategory(row._id, value)
                           .then(() => {
                             toast.success("updated!", {
                               position: toast.POSITION.TOP_CENTER,
@@ -142,8 +141,8 @@ const Category = (props) => {
                         size="small"
                         onClick={(e) => {
                           if (window.confirm("Press Ok to confirm deletion")) {
-                            categoryService
-                              .deleteCategory(row._id)
+                            subCategoryService
+                              .deleteSubCategory(row._id)
                               .then(() => {
                                 toast.success("deleted Successfully", {
                                   position: toast.POSITION.TOP_CENTER,
@@ -198,11 +197,8 @@ const Category = (props) => {
         </TableContainer>
       </Paper>
       <br />
-      <SubCategory />
-      <br />
-      <Genre />
     </>
   );
 };
 
-export default Category;
+export default SubCategory;
