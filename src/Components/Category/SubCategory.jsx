@@ -92,6 +92,7 @@ const SubCategory = (props) => {
               <TableRow>
                 <TableCell>No.</TableCell>
                 <TableCell align="left">Category Name</TableCell>
+                <TableCell align="left">Parent Category Name</TableCell>
                 <TableCell align="left">Delete</TableCell>
               </TableRow>
             </TableHead>
@@ -134,6 +135,7 @@ const SubCategory = (props) => {
                       defaultValue={row.name}
                     />
                   </TableCell>
+                  <TableCell>{row.parent}</TableCell>
 
                   <TableCell align="left">
                     <ButtonGroup disableElevation variant="contained">

@@ -116,7 +116,7 @@ const ViewAudioBooks = (props) => {
                     />
                   </TableCell>
                   <TableCell align="left">{row.title}</TableCell>
-                  <TableCell align="left">{row.categories[0]}</TableCell>
+                  <TableCell align="left">{row.categories}</TableCell>
 
                   <TableCell align="left">
                     <ButtonGroup disableElevation variant="contained">

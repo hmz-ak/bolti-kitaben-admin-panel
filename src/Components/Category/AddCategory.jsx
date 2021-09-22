@@ -7,7 +7,7 @@ import {
   Paper,
   InputLabel,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import categoryService from "../services/CategoryService";
 import { toast } from "react-toastify";
 import { useStyles } from "./styles";
@@ -21,6 +21,10 @@ const AddCategory = () => {
   const [name, setName] = useState("");
   const [name2, setName2] = useState("");
   const [name3, setName3] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [state, setState] = React.useState({
+    name: "hai",
+  });
 
   const AddCategory = () => {
     categoryService
@@ -40,9 +44,10 @@ const AddCategory = () => {
 
   const AddSubCategory = () => {
     subCategoryService
-      .addSubCategory(name2)
+      .addSubCategory(state, name2)
       .then(() => {
         setName2("");
+        setState("");
         toast.success("Sub Category added successfully!", {
           position: toast.POSITION.TOP_CENTER,
         });
@@ -68,6 +73,19 @@ const AddCategory = () => {
         });
       });
   };
+  useEffect(() => {
+    categoryService
+      .getCategory()
+      .then((data) => {
+        console.log(data);
+        setCategories(data);
+      })
+      .catch((err) => {
+        toast.error(err?.response.data, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      });
+  }, []);
 
   return (
     <div>
@@ -80,15 +98,18 @@ const AddCategory = () => {
             <CategoryCard
               name={name}
               setName={setName}
-              categoryText={"Parent Caregory"}
+              categoryText={"Parent Category"}
               service={AddCategory}
             />
           </Grid>
           <Grid item xs={12} lg={4}>
             <CategoryCard
               name={name2}
+              state={state}
+              setState={setState}
+              parentCategories={categories}
               setName={setName2}
-              categoryText={"Child Caregory"}
+              categoryText={"Child Category"}
               service={AddSubCategory}
             />
           </Grid>

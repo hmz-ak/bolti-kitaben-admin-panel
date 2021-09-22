@@ -1,22 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
-import { Button, Container, Grid, TextField } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  FormControl,
+  Grid,
+  InputLabel,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import CategorySelect from "./CategorySelect";
 import ImageInput from "../ImageInput/ImageInput";
 import bookService from "../services/BookService";
 import { toast } from "react-toastify";
+import categoryService from "../services/CategoryService";
+import subCategoryService from "../services/SubCategoryService";
 
 const AddAudioBook = () => {
   const [title, setTitle] = useState("");
+  const [titleUrdu, setTitleUrdu] = useState("");
   const [author, setAuthor] = useState("");
-  const [type, setType] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImg] = useState(null);
-  const [personName, setPersonName] = React.useState([]);
-  const handleChange = (event) => {
-    setPersonName(event.target.value);
-    console.log(personName);
-  };
+  const [subCategory, setSubCategory] = React.useState("");
+  const [genre, setGenre] = React.useState([]);
+  const [subCategorySelect, setSubCategorySelect] = React.useState("");
+  const [parentCategory, setParentCategory] = React.useState("");
+  const [categoryData, setCategoryData] = useState([]);
+  const [trigger, setTrigger] = useState(false);
+
+  useEffect(() => {
+    categoryService
+      .getCategory()
+      .then((data) => {
+        setCategoryData(data);
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    subCategoryService
+      .getSubCategoryByParent(parentCategory)
+      .then((data) => {
+        setSubCategory(data);
+        console.log(data);
+        if (parentCategory != "") {
+          setTrigger(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [parentCategory]);
   const config = {
     headers: {
       "content-type": "multipart/form-data",
@@ -32,9 +66,19 @@ const AddAudioBook = () => {
                 style={isMobile ? { width: "100%" } : {}}
                 required
                 id="standard-required"
-                label="Book Title"
+                label="Book Title English"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} lg={4}>
+              <TextField
+                style={isMobile ? { width: "100%" } : {}}
+                required
+                id="standard-required"
+                label="Book Title Urdu"
+                value={titleUrdu}
+                onChange={(e) => setTitleUrdu(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} lg={4}>
@@ -48,12 +92,57 @@ const AddAudioBook = () => {
               />
             </Grid>
             <Grid item xs={12} lg={4}>
-              <CategorySelect
-                personName={personName}
-                setPersonName={handleChange}
-              />
-              {console.log(personName)}
+              <FormControl style={{ width: "60%", marginTop: 20 }}>
+                <InputLabel id="demo-mutiple-chip-label">
+                  Parent Category
+                </InputLabel>
+                <Select
+                  native
+                  value={parentCategory}
+                  onChange={(e) => {
+                    setTrigger((prev) => !prev);
+                    setParentCategory(e.target.value);
+                    if (parentCategory === "") {
+                      setSubCategorySelect("");
+                    }
+                  }}
+                >
+                  <option aria-label="None" value="" />
+                  {categoryData.map((item) => {
+                    return <option value={item.name}>{item.name}</option>;
+                  })}
+                </Select>
+              </FormControl>
             </Grid>
+            <Grid item xs={12} lg={4}>
+              {trigger && (
+                <FormControl style={{ width: "60%", marginTop: 20 }}>
+                  <InputLabel id="demo-mutiple-chip-label">
+                    Sub Category
+                  </InputLabel>
+                  <Select
+                    native
+                    value={subCategorySelect}
+                    onChange={(e) => {
+                      setSubCategorySelect(e.target.value);
+                    }}
+                  >
+                    <option aria-label="None" value="" />
+                    {subCategory.map((item) => {
+                      return <option value={item.name}>{item.name}</option>;
+                    })}
+                  </Select>
+                </FormControl>
+              )}
+            </Grid>
+            {trigger && (
+              <Grid style={{ marginTop: 20 }} item xs={12} lg={4}>
+                <CategorySelect
+                  genre={genre}
+                  setGenre={(e) => setGenre(e.target.value)}
+                />
+              </Grid>
+            )}
 
             <Grid xs={12} item>
               <TextField
@@ -86,11 +175,14 @@ const AddAudioBook = () => {
                   console.log(image);
                   const formData = new FormData();
                   formData.append("title", title);
+                  formData.append("titleUrdu", titleUrdu);
                   formData.append("author", author);
                   formData.append("image", image);
                   formData.append("description", description);
-                  for (var i = 0; i < personName.length; i++) {
-                    formData.append("categories[]", personName[i]);
+                  formData.append("categories", parentCategory);
+                  formData.append("subCategory", subCategorySelect);
+                  for (var i = 0; i < genre.length; i++) {
+                    formData.append("genre[]", genre[i]);
                   }
                   // for (var key of formData.entries()) {
                   //   console.log(key[0] + ", " + key[1]);
@@ -103,10 +195,13 @@ const AddAudioBook = () => {
                         position: toast.POSITION.TOP_CENTER,
                       });
                       setTitle("");
+                      setTitleUrdu("");
                       setAuthor("");
                       setImg(null);
                       setDescription("");
-                      setPersonName([]);
+                      setGenre([]);
+                      setParentCategory("");
+                      setSubCategorySelect("");
                     })
                     .catch((err) => {
                       toast.error(err?.response.data, {

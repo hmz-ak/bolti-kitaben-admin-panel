@@ -11,6 +11,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Chip from "@material-ui/core/Chip";
 import { useEffect } from "react";
 import categoryService from "../services/CategoryService";
+import genreService from "../services/GenreService";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     // margin: theme.spacing(1),
@@ -49,14 +50,14 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function MultipleSelect({ personName, setPersonName }) {
+export default function MultipleSelect({ genre, setGenre }) {
   const classes = useStyles();
   const theme = useTheme();
   const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
-    categoryService
-      .getCategory()
+    genreService
+      .getGenre()
       .then((data) => {
         setCategoryData(data);
         console.log(data);
@@ -77,14 +78,14 @@ export default function MultipleSelect({ personName, setPersonName }) {
 
   return (
     <div>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Categories</InputLabel>
+      <FormControl style={{ width: "60%" }} className={classes.formControl}>
+        <InputLabel id="demo-mutiple-chip-label">select genres</InputLabel>
         <Select
           labelId="demo-mutiple-chip-label"
           id="demo-mutiple-chip"
           multiple
-          value={personName}
-          onChange={setPersonName}
+          value={genre}
+          onChange={setGenre}
           input={<Input id="select-multiple-chip" />}
           renderValue={(selected) => (
             <div className={classes.chips}>
@@ -99,7 +100,7 @@ export default function MultipleSelect({ personName, setPersonName }) {
             <MenuItem
               key={index}
               value={name.name}
-              style={getStyles(name, personName, theme)}
+              style={getStyles(name, genre, theme)}
             >
               {name.name}
             </MenuItem>

@@ -2,10 +2,13 @@ import GenericService from "./GenericService";
 
 class SubCategoryService extends GenericService {
   getSubCategory = () => this.get("/api/subCategories");
+  getSubCategoryByParent = (parent) =>
+    this.post("/api/subCategories/parent/", { parent });
 
   getSingleSubCategory = (id) => this.get("/api/subCategories/" + id);
 
-  addSubCategory = (name) => this.post("/api/subCategories", { name });
+  addSubCategory = (parent, name) =>
+    this.post("/api/subCategories", { parent, name });
 
   deleteSubCategory = (_id) => this.delete("/api/subCategories/" + _id);
 
