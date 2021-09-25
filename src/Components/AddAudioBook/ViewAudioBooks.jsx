@@ -92,7 +92,8 @@ const ViewAudioBooks = (props) => {
                 <TableCell align="left">Book Image</TableCell>
                 <TableCell align="left">Book Name</TableCell>
                 <TableCell align="left">Categories</TableCell>
-                <TableCell align="left">Delete</TableCell>
+                <TableCell align="left">Add Chapter</TableCell>
+                <TableCell align="left">Edit/Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -117,7 +118,17 @@ const ViewAudioBooks = (props) => {
                   </TableCell>
                   <TableCell align="left">{row.title}</TableCell>
                   <TableCell align="left">{row.categories}</TableCell>
-
+                  <TableCell align="left">
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        props.history.push("/addChapter/" + row._id);
+                      }}
+                      style={{ backgroundColor: "#097481", color: "white" }}
+                    >
+                      Add Chapter
+                    </Button>
+                  </TableCell>
                   <TableCell align="left">
                     <ButtonGroup disableElevation variant="contained">
                       <Button
@@ -127,7 +138,7 @@ const ViewAudioBooks = (props) => {
                         }}
                         style={{ backgroundColor: "#3F51B5", color: "white" }}
                       >
-                        View
+                        Edit
                       </Button>
                       <Button
                         size="small"

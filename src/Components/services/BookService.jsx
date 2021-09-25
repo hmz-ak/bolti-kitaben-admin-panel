@@ -9,8 +9,8 @@ class BookService extends GenericService {
 
   deleteBook = (_id) => this.delete("/api/books/" + _id);
 
-  updateBook = (_id, formData, config) =>
-    this.put("/api/books/" + _id, formData, config);
+  updateBook = (id, formData, config) =>
+    this.put("/api/books/" + id, formData, config);
 }
 
 let bookService = new BookService();

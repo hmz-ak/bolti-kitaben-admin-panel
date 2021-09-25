@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import {
   AssignmentInd,
+  Pages,
   AddBox,
   Home,
   Store,
@@ -43,6 +44,12 @@ const ListComponent = (props) => {
           <MenuBook />
         </ListItemIcon>
         <ListItemText primary="Audio Books" />
+      </ListItem>
+      <ListItem onClick={() => props.history.push("/addChapter")} button>
+        <ListItemIcon>
+          <Pages />
+        </ListItemIcon>
+        <ListItemText primary="Chapters" />
       </ListItem>
       <Divider />
       <ListItem onClick={() => props.history.push("/addAudioBook")} button>
