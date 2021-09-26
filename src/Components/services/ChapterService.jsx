@@ -1,9 +1,10 @@
 import GenericService from "./GenericService";
 
 class ChapterService extends GenericService {
-  getChapter = () => this.get("/api/chapters/");
+  getChapter = (book_id) => this.get("/api/chapters/" + book_id);
 
-  getSingleChapter = (id) => this.get("/api/chapters/" + id);
+  getSingleChapter = (chapter_id) =>
+    this.get("/api/chapters/single/" + chapter_id);
 
   addChapter = (formData, config) =>
     this.post("/api/chapters/", formData, config);

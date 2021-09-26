@@ -12,7 +12,6 @@ import {
   Button,
   Paper,
   TableBody,
-  InputLabel,
 } from "@material-ui/core";
 import { EditText } from "react-edit-text";
 import { toast } from "react-toastify";
@@ -21,7 +20,8 @@ import SearchBar from "material-ui-search-bar";
 import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 import { makeStyles } from "@material-ui/core/styles";
 
-import subCategoryService from "../services/SubCategoryService";
+import bookService from "../services/BookService";
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles({
   // table: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   // },
 });
 
-const SubCategory = (props) => {
+const Chapter = (props) => {
   const [rows, setRows] = useState([]);
   const [rowsAfterSearch, setRowsAfterSearch] = useState([]);
   const [searched, setSearched] = useState("");
@@ -38,8 +38,8 @@ const SubCategory = (props) => {
 
   const classes = useStyles();
   useEffect(() => {
-    subCategoryService
-      .getSubCategory()
+    bookService
+      .getBook()
       .then((data) => {
         setRows(data);
         setRowsAfterSearch(data);
@@ -63,7 +63,7 @@ const SubCategory = (props) => {
 
   const requestSearch = (searchedVal) => {
     const filteredRows = rowsAfterSearch.filter((row) => {
-      return row.name.toLowerCase().includes(searchedVal.toLowerCase());
+      return row.title.toLowerCase().includes(searchedVal.toLowerCase());
     });
     setRows(filteredRows);
   };
@@ -76,8 +76,6 @@ const SubCategory = (props) => {
 
   return (
     <>
-      <InputLabel style={{ padding: 10 }}>Sub Category Table</InputLabel>
-
       <Paper>
         <SearchBar
           value={searched}
@@ -91,9 +89,10 @@ const SubCategory = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell>No.</TableCell>
-                <TableCell align="left">Category Name</TableCell>
-                <TableCell align="left">Parent Category Name</TableCell>
-                <TableCell align="left">Delete</TableCell>
+                <TableCell align="left">Book Image</TableCell>
+                <TableCell align="left">Book Name</TableCell>
+                <TableCell align="left">Categories</TableCell>
+                <TableCell align="left">View Chapters</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -106,67 +105,28 @@ const SubCategory = (props) => {
               ).map((row, index) => (
                 <TableRow key={row._id}>
                   <TableCell component="th" scope="row">
-                    {index}
+                    {index + 1}
                   </TableCell>
 
                   <TableCell align="left">
-                    <EditText
-                      id="customer"
-                      style={{ width: 200, cursor: "pointer" }}
-                      placeholder={row.name}
-                      onSave={({ value }) => {
-                        subCategoryService
-                          .updateSubCategory(row._id, value, row.parent)
-                          .then(() => {
-                            toast.success("updated!", {
-                              position: toast.POSITION.TOP_CENTER,
-                            });
-                            setTimeout(function () {
-                              window.location.reload();
-                            }, 1000);
-                          })
-                          .catch((err) => {
-                            toast.error(err?.response.data, {
-                              position: toast.POSITION.TOP_CENTER,
-                            });
-                          });
-                      }}
-                      type="text"
-                      defaultValue={row.name}
+                    <img
+                      width="100"
+                      src={`http://localhost:4000/images/${row.image}`}
+                      alt="img-"
                     />
                   </TableCell>
-                  <TableCell>{row.parent}</TableCell>
-
+                  <TableCell align="left">{row.title}</TableCell>
+                  <TableCell align="left">{row.categories}</TableCell>
                   <TableCell align="left">
-                    <ButtonGroup disableElevation variant="contained">
-                      <Button
-                        size="small"
-                        onClick={(e) => {
-                          if (window.confirm("Press Ok to confirm deletion")) {
-                            subCategoryService
-                              .deleteSubCategory(row._id)
-                              .then(() => {
-                                toast.success("deleted Successfully", {
-                                  position: toast.POSITION.TOP_CENTER,
-                                });
-                                setTimeout(function () {
-                                  window.location.reload();
-                                }, 1000);
-                              })
-                              .catch((err) => {
-                                toast.error(err?.response.data, {
-                                  position: toast.POSITION.TOP_CENTER,
-                                });
-                              });
-                          } else {
-                            // no is clicked
-                          }
-                        }}
-                        style={{ backgroundColor: "red", color: "white" }}
-                      >
-                        Delete
-                      </Button>
-                    </ButtonGroup>
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        props.history.push("/viewChapters/" + row._id);
+                      }}
+                      style={{ backgroundColor: "#097481", color: "white" }}
+                    >
+                      View Chapters
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -203,4 +163,4 @@ const SubCategory = (props) => {
   );
 };
 
-export default SubCategory;
+export default withRouter(Chapter);

@@ -21,6 +21,9 @@ import Category from "../Category/Category";
 import ViewAudioBooks from "../AddAudioBook/ViewAudioBooks";
 import SingleAudioBook from "../AddAudioBook/SingleAudioBook";
 import AddChapter from "../Chapter/AddChapter";
+import Chapter from "../Chapter/Chapter";
+import ViewChapter from "../Chapter/ViewChapter";
+import SingleChapter from "../Chapter/SingleChapter";
 
 export default function NavDrawer(props) {
   const { window } = props;
@@ -103,6 +106,9 @@ export default function NavDrawer(props) {
           <Route path="/addCategory" render={() => <AddCategory />} />
           <Route path="/categories" render={() => <Category />} />
           <Route path="/books" render={() => <ViewAudioBooks />} />
+          <Route path="/chapters" render={() => <Chapter />} />
+          <Route path="/viewChapters/:id" render={() => <ViewChapter />} />
+          <Route path="/singleChapter/:id" render={() => <SingleChapter />} />
           <Route path="/addChapter/:id" render={() => <AddChapter />} />
           <Route path="/:id" render={() => <SingleAudioBook />} />
         </Switch>

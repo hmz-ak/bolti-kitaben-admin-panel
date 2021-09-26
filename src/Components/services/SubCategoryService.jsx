@@ -12,8 +12,8 @@ class SubCategoryService extends GenericService {
 
   deleteSubCategory = (_id) => this.delete("/api/subCategories/" + _id);
 
-  updateSubCategory = (_id, name) =>
-    this.put("/api/subCategories/" + _id, { name });
+  updateSubCategory = (_id, name, parent) =>
+    this.put("/api/subCategories/" + _id, { name, parent });
 }
 
 let subCategoryService = new SubCategoryService();
