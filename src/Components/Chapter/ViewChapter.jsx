@@ -23,6 +23,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import bookService from "../services/BookService";
 import { withRouter } from "react-router-dom";
 import chapterService from "../services/ChapterService";
+import Auth from "../Auth/Auth";
 
 const useStyles = makeStyles({
   // table: {
@@ -76,7 +77,7 @@ const ViewChapter = (props) => {
   };
 
   return (
-    <>
+    <Auth>
       <Paper>
         <SearchBar
           value={searched}
@@ -170,7 +171,7 @@ const ViewChapter = (props) => {
         )}
       </Paper>
       <br />
-    </>
+    </Auth>
   );
 };
 

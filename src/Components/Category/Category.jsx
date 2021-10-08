@@ -24,6 +24,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import categoryService from "../services/CategoryService";
 import SubCategory from "./SubCategory";
 import Genre from "./Genre";
+import Auth from "../Auth/Auth";
 
 const useStyles = makeStyles({
   // table: {
@@ -77,7 +78,7 @@ const Category = (props) => {
   };
 
   return (
-    <>
+    <Auth>
       <InputLabel style={{ padding: 10 }}>Parent Category Table</InputLabel>
       <Paper>
         <SearchBar
@@ -201,7 +202,7 @@ const Category = (props) => {
       <SubCategory />
       <br />
       <Genre />
-    </>
+    </Auth>
   );
 };
 

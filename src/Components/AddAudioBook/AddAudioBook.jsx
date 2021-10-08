@@ -15,6 +15,7 @@ import bookService from "../services/BookService";
 import { toast } from "react-toastify";
 import categoryService from "../services/CategoryService";
 import subCategoryService from "../services/SubCategoryService";
+import Auth from "../Auth/Auth";
 
 const AddAudioBook = () => {
   const [title, setTitle] = useState("");
@@ -57,166 +58,168 @@ const AddAudioBook = () => {
     },
   };
   return (
-    <Container maxWidth="md">
-      <Grid container>
-        <Grid item xs={12}>
-          <Grid align={isMobile ? "center" : "left"} container>
-            <Grid item xs={12} lg={4}>
-              <TextField
-                style={isMobile ? { width: "100%" } : {}}
-                required
-                id="standard-required"
-                label="Book Title English"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <TextField
-                style={isMobile ? { width: "100%" } : {}}
-                required
-                id="standard-required"
-                label="Book Title Urdu"
-                value={titleUrdu}
-                onChange={(e) => setTitleUrdu(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <TextField
-                style={isMobile ? { width: "100%" } : {}}
-                required
-                id="standard-required"
-                label="Author Name"
-                onChange={(e) => setAuthor(e.target.value)}
-                value={author}
-              />
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <FormControl style={{ width: "60%", marginTop: 20 }}>
-                <InputLabel id="demo-mutiple-chip-label">
-                  Parent Category
-                </InputLabel>
-                <Select
-                  native
-                  value={parentCategory}
-                  onChange={(e) => {
-                    setTrigger((prev) => !prev);
-                    setParentCategory(e.target.value);
-                    if (parentCategory === "") {
-                      setSubCategorySelect("");
-                    }
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  {categoryData.map((item) => {
-                    return <option value={item.name}>{item.name}</option>;
-                  })}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              {trigger && (
+    <Auth>
+      <Container maxWidth="md">
+        <Grid container>
+          <Grid item xs={12}>
+            <Grid align={isMobile ? "center" : "left"} container>
+              <Grid item xs={12} lg={4}>
+                <TextField
+                  style={isMobile ? { width: "100%" } : {}}
+                  required
+                  id="standard-required"
+                  label="Book Title English"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} lg={4}>
+                <TextField
+                  style={isMobile ? { width: "100%" } : {}}
+                  required
+                  id="standard-required"
+                  label="Book Title Urdu"
+                  value={titleUrdu}
+                  onChange={(e) => setTitleUrdu(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} lg={4}>
+                <TextField
+                  style={isMobile ? { width: "100%" } : {}}
+                  required
+                  id="standard-required"
+                  label="Author Name"
+                  onChange={(e) => setAuthor(e.target.value)}
+                  value={author}
+                />
+              </Grid>
+              <Grid item xs={12} lg={4}>
                 <FormControl style={{ width: "60%", marginTop: 20 }}>
                   <InputLabel id="demo-mutiple-chip-label">
-                    Sub Category
+                    Parent Category
                   </InputLabel>
                   <Select
                     native
-                    value={subCategorySelect}
+                    value={parentCategory}
                     onChange={(e) => {
-                      setSubCategorySelect(e.target.value);
+                      setTrigger((prev) => !prev);
+                      setParentCategory(e.target.value);
+                      if (parentCategory === "") {
+                        setSubCategorySelect("");
+                      }
                     }}
                   >
                     <option aria-label="None" value="" />
-                    {subCategory.map((item) => {
+                    {categoryData.map((item) => {
                       return <option value={item.name}>{item.name}</option>;
                     })}
                   </Select>
                 </FormControl>
+              </Grid>
+              <Grid item xs={12} lg={4}>
+                {trigger && (
+                  <FormControl style={{ width: "60%", marginTop: 20 }}>
+                    <InputLabel id="demo-mutiple-chip-label">
+                      Sub Category
+                    </InputLabel>
+                    <Select
+                      native
+                      value={subCategorySelect}
+                      onChange={(e) => {
+                        setSubCategorySelect(e.target.value);
+                      }}
+                    >
+                      <option aria-label="None" value="" />
+                      {subCategory.map((item) => {
+                        return <option value={item.name}>{item.name}</option>;
+                      })}
+                    </Select>
+                  </FormControl>
+                )}
+              </Grid>
+              {trigger && (
+                <Grid style={{ marginTop: 20 }} item xs={12} lg={4}>
+                  <CategorySelect
+                    genre={genre}
+                    setGenre={(e) => setGenre(e.target.value)}
+                  />
+                </Grid>
               )}
-            </Grid>
-            {trigger && (
-              <Grid style={{ marginTop: 20 }} item xs={12} lg={4}>
-                <CategorySelect
-                  genre={genre}
-                  setGenre={(e) => setGenre(e.target.value)}
+
+              <Grid xs={12} item>
+                <TextField
+                  style={{ width: "100%", marginTop: 40 }}
+                  id="outlined-multiline-static"
+                  label="Enter Book Description"
+                  multiline
+                  rows={10}
+                  onChange={(e) => setDescription(e.target.value)}
+                  value={description}
+                  variant="outlined"
                 />
               </Grid>
-            )}
-
-            <Grid xs={12} item>
-              <TextField
-                style={{ width: "100%", marginTop: 40 }}
-                id="outlined-multiline-static"
-                label="Enter Book Description"
-                multiline
-                rows={10}
-                onChange={(e) => setDescription(e.target.value)}
-                value={description}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <ImageInput
-                nameAttr={"BookImage"}
-                idAttr={"book-img"}
-                uploadText={"jpeg/jpg/png/gif"}
-                getter={image}
-                setter={(e) => setImg(e.target.files[0])}
-                helperText={", size limit: 40 mb"}
-              />
-            </Grid>
-            <Grid align="center" item xs={12}>
-              <Button
-                style={{ width: "30%", marginTop: 30 }}
-                color="primary"
-                variant="contained"
-                onClick={() => {
-                  console.log(image);
-                  const formData = new FormData();
-                  formData.append("title", title);
-                  formData.append("titleUrdu", titleUrdu);
-                  formData.append("author", author);
-                  formData.append("image", image);
-                  formData.append("description", description);
-                  formData.append("categories", parentCategory);
-                  formData.append("subCategory", subCategorySelect);
-                  for (var i = 0; i < genre.length; i++) {
-                    formData.append("genre[]", genre[i]);
-                  }
-                  // for (var key of formData.entries()) {
-                  //   console.log(key[0] + ", " + key[1]);
-                  // }
-                  bookService
-                    .addBook(formData, config)
-                    .then((res) => {
-                      console.log(res);
-                      toast.success("Book Added Successfully", {
-                        position: toast.POSITION.TOP_CENTER,
+              <Grid item xs={12}>
+                <ImageInput
+                  nameAttr={"BookImage"}
+                  idAttr={"book-img"}
+                  uploadText={"jpeg/jpg/png/gif"}
+                  getter={image}
+                  setter={(e) => setImg(e.target.files[0])}
+                  helperText={", size limit: 40 mb"}
+                />
+              </Grid>
+              <Grid align="center" item xs={12}>
+                <Button
+                  style={{ width: "30%", marginTop: 30 }}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => {
+                    console.log(image);
+                    const formData = new FormData();
+                    formData.append("title", title);
+                    formData.append("titleUrdu", titleUrdu);
+                    formData.append("author", author);
+                    formData.append("image", image);
+                    formData.append("description", description);
+                    formData.append("categories", parentCategory);
+                    formData.append("subCategory", subCategorySelect);
+                    for (var i = 0; i < genre.length; i++) {
+                      formData.append("genre[]", genre[i]);
+                    }
+                    // for (var key of formData.entries()) {
+                    //   console.log(key[0] + ", " + key[1]);
+                    // }
+                    bookService
+                      .addBook(formData, config)
+                      .then((res) => {
+                        console.log(res);
+                        toast.success("Book Added Successfully", {
+                          position: toast.POSITION.TOP_CENTER,
+                        });
+                        setTitle("");
+                        setTitleUrdu("");
+                        setAuthor("");
+                        setImg(null);
+                        setDescription("");
+                        setGenre([]);
+                        setParentCategory("");
+                        setSubCategorySelect("");
+                      })
+                      .catch((err) => {
+                        toast.error(err?.response.data, {
+                          position: toast.POSITION.TOP_CENTER,
+                        });
                       });
-                      setTitle("");
-                      setTitleUrdu("");
-                      setAuthor("");
-                      setImg(null);
-                      setDescription("");
-                      setGenre([]);
-                      setParentCategory("");
-                      setSubCategorySelect("");
-                    })
-                    .catch((err) => {
-                      toast.error(err?.response.data, {
-                        position: toast.POSITION.TOP_CENTER,
-                      });
-                    });
-                }}
-              >
-                Add Book
-              </Button>
+                  }}
+                >
+                  Add Book
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </Auth>
   );
 };
 

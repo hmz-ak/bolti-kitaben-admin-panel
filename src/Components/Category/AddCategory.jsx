@@ -14,6 +14,7 @@ import { useStyles } from "./styles";
 import CategoryCard from "./CategoryCard";
 import subCategoryService from "../services/SubCategoryService";
 import genreService from "../services/GenreService";
+import Auth from "../Auth/Auth";
 
 const AddCategory = () => {
   const classes = useStyles();
@@ -88,42 +89,44 @@ const AddCategory = () => {
   }, []);
 
   return (
-    <div>
-      <Typography align="center" variant="h3">
-        ADD CATEGORY
-      </Typography>
-      <Container className={classes.container} maxWidth="lg">
-        <Grid container spacing={3}>
-          <Grid item xs={12} lg={4}>
-            <CategoryCard
-              name={name}
-              setName={setName}
-              categoryText={"Parent Category"}
-              service={AddCategory}
-            />
+    <Auth>
+      <div>
+        <Typography align="center" variant="h3">
+          ADD CATEGORY
+        </Typography>
+        <Container className={classes.container} maxWidth="lg">
+          <Grid container spacing={3}>
+            <Grid item xs={12} lg={4}>
+              <CategoryCard
+                name={name}
+                setName={setName}
+                categoryText={"Parent Category"}
+                service={AddCategory}
+              />
+            </Grid>
+            <Grid item xs={12} lg={4}>
+              <CategoryCard
+                name={name2}
+                state={state}
+                setState={setState}
+                parentCategories={categories}
+                setName={setName2}
+                categoryText={"Child Category"}
+                service={AddSubCategory}
+              />
+            </Grid>
+            <Grid item xs={12} lg={4}>
+              <CategoryCard
+                name={name3}
+                setName={setName3}
+                categoryText={"Genre"}
+                service={AddGenre}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={12} lg={4}>
-            <CategoryCard
-              name={name2}
-              state={state}
-              setState={setState}
-              parentCategories={categories}
-              setName={setName2}
-              categoryText={"Child Category"}
-              service={AddSubCategory}
-            />
-          </Grid>
-          <Grid item xs={12} lg={4}>
-            <CategoryCard
-              name={name3}
-              setName={setName3}
-              categoryText={"Genre"}
-              service={AddGenre}
-            />
-          </Grid>
-        </Grid>
-      </Container>
-    </div>
+        </Container>
+      </div>
+    </Auth>
   );
 };
 

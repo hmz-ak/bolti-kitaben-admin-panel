@@ -12,6 +12,7 @@ import Chip from "@material-ui/core/Chip";
 import { useEffect } from "react";
 import categoryService from "../services/CategoryService";
 import genreService from "../services/GenreService";
+import Auth from "../Auth/Auth";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     // margin: theme.spacing(1),
@@ -77,36 +78,38 @@ export default function MultipleSelect({ genre, setGenre }) {
   // };
 
   return (
-    <div>
-      <FormControl style={{ width: "60%" }} className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">select genres</InputLabel>
-        <Select
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
-          multiple
-          value={genre}
-          onChange={setGenre}
-          input={<Input id="select-multiple-chip" />}
-          renderValue={(selected) => (
-            <div className={classes.chips}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
-          MenuProps={MenuProps}
-        >
-          {categoryData?.map((name, index) => (
-            <MenuItem
-              key={index}
-              value={name.name}
-              style={getStyles(name, genre, theme)}
-            >
-              {name.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
+    <Auth>
+      <div>
+        <FormControl style={{ width: "60%" }} className={classes.formControl}>
+          <InputLabel id="demo-mutiple-chip-label">select genres</InputLabel>
+          <Select
+            labelId="demo-mutiple-chip-label"
+            id="demo-mutiple-chip"
+            multiple
+            value={genre}
+            onChange={setGenre}
+            input={<Input id="select-multiple-chip" />}
+            renderValue={(selected) => (
+              <div className={classes.chips}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} className={classes.chip} />
+                ))}
+              </div>
+            )}
+            MenuProps={MenuProps}
+          >
+            {categoryData?.map((name, index) => (
+              <MenuItem
+                key={index}
+                value={name.name}
+                style={getStyles(name, genre, theme)}
+              >
+                {name.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+    </Auth>
   );
 }

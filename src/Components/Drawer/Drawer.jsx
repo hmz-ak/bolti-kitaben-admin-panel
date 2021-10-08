@@ -24,6 +24,8 @@ import AddChapter from "../Chapter/AddChapter";
 import Chapter from "../Chapter/Chapter";
 import ViewChapter from "../Chapter/ViewChapter";
 import SingleChapter from "../Chapter/SingleChapter";
+import Login from "../Auth/Login";
+import Auth from "../Auth/Auth";
 
 export default function NavDrawer(props) {
   const { window } = props;
@@ -36,14 +38,17 @@ export default function NavDrawer(props) {
   };
 
   const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <Typography className={classes.bolText} align="center">
-        BOLTI KITABEN
-      </Typography>
-      <Divider />
-      <ListComponent />
-    </div>
+    <Auth>
+      <div>
+        <div className={classes.toolbar} />
+        <Typography className={classes.bolText} align="center">
+          BOLTI KITABEN
+        </Typography>
+        <Divider />
+
+        <ListComponent />
+      </div>
+    </Auth>
   );
 
   const container =
@@ -102,6 +107,7 @@ export default function NavDrawer(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Switch>
+          <Route path="/login" render={() => <Login />} />
           <Route path="/addAudioBook" render={() => <AddAudioBook />} />
           <Route path="/addCategory" render={() => <AddCategory />} />
           <Route path="/categories" render={() => <Category />} />

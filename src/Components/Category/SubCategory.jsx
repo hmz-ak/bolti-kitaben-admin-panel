@@ -22,6 +22,7 @@ import TablePaginationActions from "@material-ui/core/TablePagination/TablePagin
 import { makeStyles } from "@material-ui/core/styles";
 
 import subCategoryService from "../services/SubCategoryService";
+import Auth from "../Auth/Auth";
 
 const useStyles = makeStyles({
   // table: {
@@ -75,7 +76,7 @@ const SubCategory = (props) => {
   };
 
   return (
-    <>
+    <Auth>
       <InputLabel style={{ padding: 10 }}>Sub Category Table</InputLabel>
 
       <Paper>
@@ -199,7 +200,7 @@ const SubCategory = (props) => {
         </TableContainer>
       </Paper>
       <br />
-    </>
+    </Auth>
   );
 };
 

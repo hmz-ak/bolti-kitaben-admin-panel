@@ -22,6 +22,7 @@ import TablePaginationActions from "@material-ui/core/TablePagination/TablePagin
 import { makeStyles } from "@material-ui/core/styles";
 
 import genreService from "../services/GenreService";
+import Auth from "../Auth/Auth";
 
 const useStyles = makeStyles({
   // table: {
@@ -75,7 +76,7 @@ const Genre = (props) => {
   };
 
   return (
-    <>
+    <Auth>
       <InputLabel style={{ padding: 10 }}>Genre Table</InputLabel>
 
       <Paper>
@@ -197,7 +198,7 @@ const Genre = (props) => {
         </TableContainer>
       </Paper>
       <br />
-    </>
+    </Auth>
   );
 };
 
