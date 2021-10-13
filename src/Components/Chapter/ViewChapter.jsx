@@ -132,6 +132,35 @@ const ViewChapter = (props) => {
                         >
                           View This Chapter
                         </Button>
+                        <Button
+                          size="small"
+                          onClick={(e) => {
+                            if (
+                              window.confirm("Press Ok to confirm deletion")
+                            ) {
+                              chapterService
+                                .deleteChapter(row._id)
+                                .then(() => {
+                                  toast.success("deleted Successfully", {
+                                    position: toast.POSITION.TOP_CENTER,
+                                  });
+                                  setTimeout(function () {
+                                    window.location.reload();
+                                  }, 1000);
+                                })
+                                .catch((err) => {
+                                  toast.error(err?.response.data, {
+                                    position: toast.POSITION.TOP_CENTER,
+                                  });
+                                });
+                            } else {
+                              // no is clicked
+                            }
+                          }}
+                          style={{ backgroundColor: "red", color: "white" }}
+                        >
+                          Delete
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))}

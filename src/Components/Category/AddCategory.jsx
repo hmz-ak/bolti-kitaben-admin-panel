@@ -32,6 +32,7 @@ const AddCategory = () => {
       .addCategory(name)
       .then(() => {
         setName("");
+        window.location.reload();
         toast.success("Category added successfully!", {
           position: toast.POSITION.TOP_CENTER,
         });

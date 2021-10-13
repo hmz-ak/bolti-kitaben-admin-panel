@@ -81,7 +81,9 @@ export default function MultipleSelect({ genre, setGenre }) {
     <Auth>
       <div>
         <FormControl style={{ width: "60%" }} className={classes.formControl}>
-          <InputLabel id="demo-mutiple-chip-label">select genres</InputLabel>
+          <InputLabel id="demo-mutiple-chip-label">
+            select genres/level 3
+          </InputLabel>
           <Select
             labelId="demo-mutiple-chip-label"
             id="demo-mutiple-chip"

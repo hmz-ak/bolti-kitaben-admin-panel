@@ -47,7 +47,13 @@ const Chapter = (props) => {
         console.log(data);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        if (err.response.data === "Invalid Token") {
+          localStorage.removeItem("token");
+          props.history.push("/login");
+        }
       });
   }, []);
   const emptyRows =

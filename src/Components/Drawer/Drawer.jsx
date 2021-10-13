@@ -38,17 +38,15 @@ export default function NavDrawer(props) {
   };
 
   const drawer = (
-    <Auth>
-      <div>
-        <div className={classes.toolbar} />
-        <Typography className={classes.bolText} align="center">
-          BOLTI KITABEN
-        </Typography>
-        <Divider />
+    <div>
+      <div className={classes.toolbar} />
+      <Typography className={classes.bolText} align="center">
+        BOLTI KITABEN
+      </Typography>
+      <Divider />
 
-        <ListComponent />
-      </div>
-    </Auth>
+      <ListComponent />
+    </div>
   );
 
   const container =

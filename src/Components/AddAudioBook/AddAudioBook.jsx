@@ -94,9 +94,9 @@ const AddAudioBook = () => {
                 />
               </Grid>
               <Grid item xs={12} lg={4}>
-                <FormControl style={{ width: "60%", marginTop: 20 }}>
+                <FormControl style={{ width: "65%", marginTop: 20 }}>
                   <InputLabel id="demo-mutiple-chip-label">
-                    Parent Category
+                    Parent Category/level 1
                   </InputLabel>
                   <Select
                     native
@@ -120,7 +120,7 @@ const AddAudioBook = () => {
                 {trigger && (
                   <FormControl style={{ width: "60%", marginTop: 20 }}>
                     <InputLabel id="demo-mutiple-chip-label">
-                      Sub Category
+                      Sub Category/ level 2
                     </InputLabel>
                     <Select
                       native
