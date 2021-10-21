@@ -40,7 +40,7 @@ const SingleChapter = (props) => {
             <InputLabel style={{ marginBottom: 10 }}>Chapter Audio</InputLabel>
 
             <ReactAudioPlayer
-              src={`http://localhost:4000/audios/${chapter.audio}`}
+              src={`/audios/${chapter.audio}`}
               autoPlay={false}
               controls
             />

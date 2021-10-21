@@ -21,6 +21,8 @@ const AddAudioBook = () => {
   const [title, setTitle] = useState("");
   const [titleUrdu, setTitleUrdu] = useState("");
   const [author, setAuthor] = useState("");
+  const [narrator, setNarrator] = useState("");
+  const [contributor, setContributor] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImg] = useState(null);
   const [subCategory, setSubCategory] = React.useState("");
@@ -73,6 +75,7 @@ const AddAudioBook = () => {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </Grid>
+
               <Grid item xs={12} lg={4}>
                 <TextField
                   style={isMobile ? { width: "100%" } : {}}
@@ -87,6 +90,28 @@ const AddAudioBook = () => {
                 <TextField
                   style={isMobile ? { width: "100%" } : {}}
                   required
+                  id="standard-required"
+                  label="Narrator"
+                  value={narrator}
+                  onChange={(e) => setNarrator(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} lg={6}>
+                <TextField
+                  style={isMobile ? { width: "100%" } : { width: "80%" }}
+                  required
+                  fullWidth
+                  id="standard-required"
+                  label="Contributor"
+                  value={contributor}
+                  onChange={(e) => setContributor(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} lg={6}>
+                <TextField
+                  style={isMobile ? { width: "100%" } : { width: "80%" }}
+                  required
+                  fullWidth
                   id="standard-required"
                   label="Author Name"
                   onChange={(e) => setAuthor(e.target.value)}
@@ -178,6 +203,8 @@ const AddAudioBook = () => {
                     const formData = new FormData();
                     formData.append("title", title);
                     formData.append("titleUrdu", titleUrdu);
+                    formData.append("narrator", narrator);
+                    formData.append("contributor", contributor);
                     formData.append("author", author);
                     formData.append("image", image);
                     formData.append("description", description);

@@ -111,11 +111,7 @@ const ViewAudioBooks = (props) => {
                   </TableCell>
 
                   <TableCell align="left">
-                    <img
-                      width="100"
-                      src={`http://localhost:4000/images/${row.image}`}
-                      alt="img-"
-                    />
+                    <img width="100" src={`/images/${row.image}`} alt="img-" />
                   </TableCell>
                   <TableCell align="left">{row.title}</TableCell>
                   <TableCell align="left">{row.categories}</TableCell>

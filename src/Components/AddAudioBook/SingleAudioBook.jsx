@@ -30,6 +30,8 @@ const SingleAudioBook = () => {
   const [subCategorySelect, setSubCategorySelect] = React.useState("");
   const [parentCategory, setParentCategory] = React.useState("");
   const [categoryData, setCategoryData] = useState([]);
+  const [narrator, setNarrator] = useState("");
+
   const [trigger, setTrigger] = useState(false);
 
   const id = useParams();
@@ -63,6 +65,7 @@ const SingleAudioBook = () => {
         console.log(data);
         setTitle(data.title);
         setAuthor(data.author);
+        setNarrator(data.narrator);
         setDescription(data.description);
         setTitleUrdu(data.titleUrdu);
         setParentCategory(data.categories);
@@ -82,7 +85,7 @@ const SingleAudioBook = () => {
         <Grid container>
           <Grid item xs={12}>
             <Grid align={isMobile ? "center" : "left"} container>
-              <Grid item xs={12} lg={4}>
+              <Grid item xs={12} lg={3}>
                 <TextField
                   style={isMobile ? { width: "100%" } : {}}
                   required
@@ -92,17 +95,25 @@ const SingleAudioBook = () => {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} lg={4}>
+              <Grid item xs={12} lg={3}>
                 <TextField
                   style={isMobile ? { width: "100%" } : {}}
-                  required
                   id="standard-required"
                   label="Book Title Urdu"
                   value={titleUrdu}
                   onChange={(e) => setTitleUrdu(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} lg={4}>
+              <Grid item xs={12} lg={3}>
+                <TextField
+                  style={isMobile ? { width: "100%" } : {}}
+                  id="standard-required"
+                  label="Narrator"
+                  value={narrator}
+                  onChange={(e) => setNarrator(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} lg={3}>
                 <TextField
                   style={isMobile ? { width: "100%" } : {}}
                   required
@@ -198,6 +209,7 @@ const SingleAudioBook = () => {
                     formData.append("title", title);
                     formData.append("titleUrdu", titleUrdu);
                     formData.append("author", author);
+                    formData.append("narrator", narrator);
                     formData.append("image", image);
                     formData.append("description", description);
                     formData.append("categories", parentCategory);
