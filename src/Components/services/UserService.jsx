@@ -1,4 +1,6 @@
 import jwtDecode from "jwt-decode";
+import { toast } from "react-toastify";
+
 import GenericService from "./GenericService";
 
 class UserService extends GenericService {
@@ -9,9 +11,16 @@ class UserService extends GenericService {
   login = (email, password) =>
     new Promise((resolve, reject) => {
       this.post("/api/users/login", { email, password })
-        .then((token) => {
-          localStorage.setItem("token", token);
-          resolve(token);
+        .then((data) => {
+          console.log(data);
+          if (data.role === "admin") {
+            localStorage.setItem("token", data.token);
+            resolve(data.token);
+          } else {
+            toast.error("Invalid Email and Password", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          }
         })
         .catch((err) => {
           reject(err);
@@ -27,6 +36,17 @@ class UserService extends GenericService {
   isLoggedIn = () => {
     return localStorage.getItem("token") ? true : false;
   };
+
+  // token_is_valid = () =>
+  //   new Promise((resolve, reject) => {
+  //     this.post("/api/users/login_verify", localStorage.getItem("token"))
+  //       .then(() => {
+  //         return true;
+  //       })
+  //       .catch(() => {
+  //         return false;
+  //       });
+  //   });
 
   getLoggedInUser = () => {
     try {

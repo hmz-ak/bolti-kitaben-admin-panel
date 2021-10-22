@@ -109,7 +109,7 @@ const AddChapter = (props) => {
                         });
                         setTitle("");
                         setTitleUrdu("");
-
+                        setTags([]);
                         setAudio(null);
                       })
                       .catch((err) => {
