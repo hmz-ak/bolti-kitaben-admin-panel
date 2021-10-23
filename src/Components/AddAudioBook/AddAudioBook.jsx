@@ -63,11 +63,12 @@ const AddAudioBook = () => {
     <Auth>
       <Container maxWidth="md">
         <Grid container>
+          
           <Grid item xs={12}>
-            <Grid align={isMobile ? "center" : "left"} container>
-              <Grid item xs={12} lg={4}>
+            <Grid align="center" container>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
                 <TextField
-                  style={isMobile ? { width: "100%" } : {}}
+                  style={{ width: "80%" } }
                   required
                   id="standard-required"
                   label="Book Title English"
@@ -76,9 +77,9 @@ const AddAudioBook = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} lg={4}>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
                 <TextField
-                  style={isMobile ? { width: "100%" } : {}}
+                  style={{ width: "80%" } }
                   required
                   id="standard-required"
                   label="Book Title Urdu"
@@ -86,9 +87,9 @@ const AddAudioBook = () => {
                   onChange={(e) => setTitleUrdu(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} lg={4}>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
                 <TextField
-                  style={isMobile ? { width: "100%" } : {}}
+                  style={{ width: "80%" } }
                   required
                   id="standard-required"
                   label="Narrator"
@@ -96,9 +97,9 @@ const AddAudioBook = () => {
                   onChange={(e) => setNarrator(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} lg={6}>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
                 <TextField
-                  style={isMobile ? { width: "100%" } : { width: "80%" }}
+                  style={{ width: "80%" }}
                   required
                   fullWidth
                   id="standard-required"
@@ -107,9 +108,9 @@ const AddAudioBook = () => {
                   onChange={(e) => setContributor(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} lg={6}>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
                 <TextField
-                  style={isMobile ? { width: "100%" } : { width: "80%" }}
+                  style={{ width: "80%" }}
                   required
                   fullWidth
                   id="standard-required"
@@ -118,8 +119,8 @@ const AddAudioBook = () => {
                   value={author}
                 />
               </Grid>
-              <Grid item xs={12} lg={4}>
-                <FormControl style={{ width: "65%", marginTop: 20 }}>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
+                <FormControl style={{ width: "80%" }}>
                   <InputLabel id="demo-mutiple-chip-label">
                     Parent Category/level 1
                   </InputLabel>
@@ -141,9 +142,9 @@ const AddAudioBook = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} lg={4}>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
                 {trigger && (
-                  <FormControl style={{ width: "60%", marginTop: 20 }}>
+                  <FormControl style={{ width: "80%" }}>
                     <InputLabel id="demo-mutiple-chip-label">
                       Sub Category/ level 2
                     </InputLabel>
@@ -163,7 +164,7 @@ const AddAudioBook = () => {
                 )}
               </Grid>
               {trigger && (
-                <Grid style={{ marginTop: 20 }} item xs={12} lg={4}>
+                <Grid align="center" style={{marginTop:10}}  item xs={12} lg={6}>
                   <CategorySelect
                     genre={genre}
                     setGenre={(e) => setGenre(e.target.value)}
@@ -171,9 +172,9 @@ const AddAudioBook = () => {
                 </Grid>
               )}
 
-              <Grid xs={12} item>
+              <Grid align="center"  xs={12} item>
                 <TextField
-                  style={{ width: "100%", marginTop: 40 }}
+                  style={{ width: "90%", marginTop: 40 }}
                   id="outlined-multiline-static"
                   label="Enter Book Description"
                   multiline

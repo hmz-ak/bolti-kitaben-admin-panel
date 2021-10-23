@@ -14,11 +14,7 @@ import categoryService from "../services/CategoryService";
 import genreService from "../services/GenreService";
 import Auth from "../Auth/Auth";
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    // margin: theme.spacing(1),
-    minWidth: 120,
-    maxWidth: 300,
-  },
+ 
   chips: {
     display: "flex",
     flexWrap: "wrap",
@@ -80,7 +76,7 @@ export default function MultipleSelect({ genre, setGenre }) {
   return (
     <Auth>
       <div>
-        <FormControl style={{ width: "60%" }} className={classes.formControl}>
+        <FormControl style={{ width: "80%" }} className={classes.formControl}>
           <InputLabel id="demo-mutiple-chip-label">
             select genres/level 3
           </InputLabel>
