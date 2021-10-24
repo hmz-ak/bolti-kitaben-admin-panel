@@ -69,7 +69,7 @@ const ListComponent = (props) => {
         <ListItemIcon>
           <Store />
         </ListItemIcon>
-        <ListItemText primary="Edit Audio Book" />
+        <ListItemText primary="Contributions" />
       </ListItem>
     </List>
   );
