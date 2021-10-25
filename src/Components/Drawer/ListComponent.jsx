@@ -65,11 +65,17 @@ const ListComponent = (props) => {
         <ListItemText primary="Add Category" />
       </ListItem>
       <Divider />
-      <ListItem button>
+      <ListItem onClick={() => props.history.push("/contribution")} button>
         <ListItemIcon>
           <Store />
         </ListItemIcon>
-        <ListItemText primary="Contributions" />
+        <ListItemText primary="Unapproved Books" />
+      </ListItem>
+      <ListItem onClick={() => props.history.push("/unapproved_chapters")} button>
+        <ListItemIcon>
+          <Store />
+        </ListItemIcon>
+        <ListItemText primary="Unapproved Chapters" />
       </ListItem>
     </List>
   );

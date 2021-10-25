@@ -6,7 +6,7 @@ class BookService extends GenericService {
   getSingleBook = (id) => this.get("/api/books/" + id);
 
   addBook = (formData, config) => this.post("/api/books/", formData, config);
-
+  approveBook = (id) => this.put('/api/books/approve/'+id);
   deleteBook = (_id) => this.delete("/api/books/" + _id);
 
   updateBook = (id, formData, config) =>

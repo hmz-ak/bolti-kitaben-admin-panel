@@ -22,10 +22,13 @@ import ViewAudioBooks from "../AddAudioBook/ViewAudioBooks";
 import SingleAudioBook from "../AddAudioBook/SingleAudioBook";
 import AddChapter from "../Chapter/AddChapter";
 import Chapter from "../Chapter/Chapter";
-import ViewChapter from "../Chapter/ViewChapter";
+import ViewChapter from "../Contribution/ViewChapter";
 import SingleChapter from "../Chapter/SingleChapter";
 import Login from "../Auth/Login";
 import Auth from "../Auth/Auth";
+import SingleBook from "../Contribution/SingleBook";
+import Contribution from "../Contribution/Contribution";
+import UnapprovedChapter from "../Contribution/UnapprovedChapter";
 
 export default function NavDrawer(props) {
   const { window } = props;
@@ -107,12 +110,16 @@ export default function NavDrawer(props) {
         <Switch>
           <Route path="/login" render={() => <Login />} />
           <Route path="/addAudioBook" render={() => <AddAudioBook />} />
+          <Route path="/contribution" render={() => <Contribution />} />
+          <Route path="/unapproved_chapters" render={() => <UnapprovedChapter />} />
+          <Route path="/singlebook/:id" render={() => <SingleBook />} />
           <Route path="/addCategory" render={() => <AddCategory />} />
           <Route path="/categories" render={() => <Category />} />
           <Route path="/books" render={() => <ViewAudioBooks />} />
           <Route path="/chapters" render={() => <Chapter />} />
           <Route path="/viewChapters/:id" render={() => <ViewChapter />} />
           <Route path="/singleChapter/:id" render={() => <SingleChapter />} />
+          <Route path="/singleUnapprovedChapter/:id" render={() => <ViewChapter />} />
           <Route path="/addChapter/:id" render={() => <AddChapter />} />
           <Route path="/:id" render={() => <SingleAudioBook />} />
         </Switch>
