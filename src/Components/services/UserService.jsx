@@ -7,7 +7,8 @@ class UserService extends GenericService {
   constructor() {
     super();
   }
-
+  getUser = () => this.get("/api/users/");
+  updateUserRole = (id,role) => this.put("/api/users/"+ id,{role});
   login = (email, password) =>
     new Promise((resolve, reject) => {
       this.post("/api/users/login", { email, password })

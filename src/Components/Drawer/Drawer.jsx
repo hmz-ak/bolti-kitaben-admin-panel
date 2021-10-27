@@ -22,13 +22,15 @@ import ViewAudioBooks from "../AddAudioBook/ViewAudioBooks";
 import SingleAudioBook from "../AddAudioBook/SingleAudioBook";
 import AddChapter from "../Chapter/AddChapter";
 import Chapter from "../Chapter/Chapter";
-import ViewChapter from "../Contribution/ViewChapter";
+import ViewChapter from "../Chapter/ViewChapter";
+import ViewChapterContribution from "../Contribution/ViewChapter";
 import SingleChapter from "../Chapter/SingleChapter";
 import Login from "../Auth/Login";
 import Auth from "../Auth/Auth";
 import SingleBook from "../Contribution/SingleBook";
 import Contribution from "../Contribution/Contribution";
 import UnapprovedChapter from "../Contribution/UnapprovedChapter";
+import User from "../User/User";
 
 export default function NavDrawer(props) {
   const { window } = props;
@@ -109,6 +111,7 @@ export default function NavDrawer(props) {
         <div className={classes.toolbar} />
         <Switch>
           <Route path="/login" render={() => <Login />} />
+          <Route path="/users" render={() => <User />} />
           <Route path="/addAudioBook" render={() => <AddAudioBook />} />
           <Route path="/contribution" render={() => <Contribution />} />
           <Route path="/unapproved_chapters" render={() => <UnapprovedChapter />} />
@@ -119,7 +122,7 @@ export default function NavDrawer(props) {
           <Route path="/chapters" render={() => <Chapter />} />
           <Route path="/viewChapters/:id" render={() => <ViewChapter />} />
           <Route path="/singleChapter/:id" render={() => <SingleChapter />} />
-          <Route path="/singleUnapprovedChapter/:id" render={() => <ViewChapter />} />
+          <Route path="/singleUnapprovedChapter/:id" render={() => <ViewChapterContribution />} />
           <Route path="/addChapter/:id" render={() => <AddChapter />} />
           <Route path="/:id" render={() => <SingleAudioBook />} />
         </Switch>

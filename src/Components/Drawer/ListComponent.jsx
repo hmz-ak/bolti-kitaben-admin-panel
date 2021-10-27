@@ -14,6 +14,7 @@ import {
   Category,
   MenuBook,
 } from "@material-ui/icons";
+import ExitToApp from "@material-ui/icons/ExitToApp";
 
 import React from "react";
 import { withRouter } from "react-router-dom";
@@ -27,7 +28,7 @@ const ListComponent = (props) => {
         </ListItemIcon>
         <ListItemText primary="Home" />
       </ListItem>
-      <ListItem button>
+      <ListItem onClick={() => props.history.push("/users")} button>
         <ListItemIcon>
           <AssignmentInd />
         </ListItemIcon>
@@ -71,11 +72,26 @@ const ListComponent = (props) => {
         </ListItemIcon>
         <ListItemText primary="Unapproved Books" />
       </ListItem>
-      <ListItem onClick={() => props.history.push("/unapproved_chapters")} button>
+      <ListItem
+        onClick={() => props.history.push("/unapproved_chapters")}
+        button
+      >
         <ListItemIcon>
           <Store />
         </ListItemIcon>
         <ListItemText primary="Unapproved Chapters" />
+      </ListItem>
+      <ListItem
+        onClick={() => {
+          localStorage.removeItem("token");
+          props.history.push("/login");
+        }}
+        button
+      >
+        <ListItemIcon>
+          <ExitToApp />
+        </ListItemIcon>
+        <ListItemText primary="Logout" />
       </ListItem>
     </List>
   );
