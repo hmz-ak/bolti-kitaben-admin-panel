@@ -61,7 +61,7 @@ const Login = (props) => {
                 .then((data) => {
                   console.log(data);
 
-                  window.location.href = "/";
+                  window.location.href = "/users";
                 })
                 .catch((err) => {
                   console.log(err);

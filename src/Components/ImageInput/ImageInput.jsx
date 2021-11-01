@@ -4,6 +4,7 @@ import { ReactComponent as Tick } from "../../assets/Vector.svg";
 import { useStyles } from "./styles";
 
 export default function ImageInput({
+  inputType,
   nameAttr,
   idAttr,
   uploadText,
@@ -22,9 +23,8 @@ export default function ImageInput({
         name={nameAttr}
         onChange={setter}
         type="file"
-        inputProps={{
-          accept: ".gif, .jpeg, .jpg, .png",
-        }}
+        inputProps={inputType === 'AUDIO' ?{ accept: 'audio/mpeg, audio/mp3' }:{ accept: 'image/png, image/jpeg, image/jpg, image/gif' }}
+        
       />
       <InputLabel htmlFor={idAttr} required error={!getter}>
         <Button

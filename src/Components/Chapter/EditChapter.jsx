@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const AddChapter = (props) => {
+  const chapter_id = props.match.params.id;
+
+  const [chapter, setChapter] = useState([]);
   const [title, setTitle] = useState("");
   const [titleUrdu, setTitleUrdu] = useState("");
   const [tags, setTags] = React.useState([]);
@@ -39,6 +42,21 @@ const AddChapter = (props) => {
       "content-type": "multipart/form-data",
     },
   };
+  useEffect(() => {
+    chapterService
+      .getSingleChapter(chapter_id)
+      .then((data) => {
+        setChapter(data);
+        setTitle(data.title);
+        setTitleUrdu(data.titleUrdu);
+        setTags([...data.tags]);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <Auth>
       <Container maxWidth="md">
@@ -98,24 +116,22 @@ const AddChapter = (props) => {
                     const formData = new FormData();
                     formData.append("book_id", id);
                     formData.append("title", title);
-                   
+                  
                     formData.append("titleUrdu", titleUrdu);
                     formData.append("audio", audio);
+
                     for (var i = 0; i < tags.length; i++) {
-                      formData.append("tags[]", tags[i]);
-                    }
+                        formData.append("tags[]", tags[i]);
+                      }
                     chapterService
-                      .addChapter(formData, config)
+                      .updateChapter(chapter_id,formData, config)
                       .then((res) => {
                         console.log(res);
                         handleClose();
-                        toast.success("Chapter Added Successfully", {
+                        toast.success("Chapter Updated Successfully", {
                           position: toast.POSITION.TOP_CENTER,
                         });
-                        setTitle("");
-                        setTitleUrdu("");
-                        setTags([]);
-                        setAudio(null);
+                       
                       })
                       .catch((err) => {
                         handleClose();
@@ -125,7 +141,7 @@ const AddChapter = (props) => {
                       });
                   }}
                 >
-                  Add Chapter
+                  Update Chapter
                 </Button>
                 <Backdrop
                   className={classes.backdrop}

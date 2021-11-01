@@ -81,6 +81,7 @@ export default function MultipleSelect({ genre, setGenre }) {
             select genres/level 3
           </InputLabel>
           <Select
+          
             labelId="demo-mutiple-chip-label"
             id="demo-mutiple-chip"
             multiple

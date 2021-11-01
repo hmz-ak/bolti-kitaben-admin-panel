@@ -2,7 +2,7 @@ import GenericService from "./GenericService";
 
 class BookService extends GenericService {
   getBook = () => this.get("/api/books/");
-
+  getUnapprovedBook = () => this.get("/api/books/unapproved_books/");
   getSingleBook = (id) => this.get("/api/books/" + id);
 
   addBook = (formData, config) => this.post("/api/books/", formData, config);

@@ -10,6 +10,7 @@ import {
   TablePagination,
   TableFooter,
   Button,
+  Chip,
   Paper,
   TableBody,
 } from "@material-ui/core";
@@ -98,7 +99,9 @@ const Chapter = (props) => {
                 <TableCell>No.</TableCell>
                 <TableCell align="left">Book Image</TableCell>
                 <TableCell align="left">Book Name</TableCell>
+                <TableCell align="left">Status</TableCell>
                 <TableCell align="left">Categories</TableCell>
+                <TableCell align="left">Add Chapters</TableCell>
                 <TableCell align="left">View Chapters</TableCell>
               </TableRow>
             </TableHead>
@@ -119,14 +122,26 @@ const Chapter = (props) => {
                     <img width="100" src={`/images/${row.image}`} alt="img-" />
                   </TableCell>
                   <TableCell align="left">{row.title}</TableCell>
+                  <TableCell align="left">{<Chip style={row.approved?{backgroundColor:"green",color:"white"}:{backgroundColor:"red",color:"white"}} label={row.approved?"approved":"not approved"}/>}</TableCell>
                   <TableCell align="left">{row.categories}</TableCell>
+                  <TableCell align="left">
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        props.history.push("/addChapter/" + row._id);
+                      }}
+                      style={{ backgroundColor: "#097481", color: "white" }}
+                    >
+                      Add Chapter
+                    </Button>
+                  </TableCell>
                   <TableCell align="left">
                     <Button
                       size="small"
                       onClick={() => {
                         props.history.push("/viewChapters/" + row._id);
                       }}
-                      style={{ backgroundColor: "#097481", color: "white" }}
+                      style={{ backgroundColor: "orange", color: "white" }}
                     >
                       View Chapters
                     </Button>

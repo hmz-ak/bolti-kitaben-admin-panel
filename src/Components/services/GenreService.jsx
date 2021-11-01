@@ -2,6 +2,7 @@ import GenericService from "./GenericService";
 
 class GenreService extends GenericService {
   getGenre = () => this.get("/api/genres");
+  getGenreNames = () => this.get("/api/genres/names");
 
   getSingleGenre = (id) => this.get("/api/genres/" + id);
 

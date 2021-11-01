@@ -22,12 +22,12 @@ import { withRouter } from "react-router-dom";
 const ListComponent = (props) => {
   return (
     <List>
-      <ListItem button>
+      {/* <ListItem button>
         <ListItemIcon>
           <Home />
         </ListItemIcon>
         <ListItemText primary="Home" />
-      </ListItem>
+      </ListItem> */}
       <ListItem onClick={() => props.history.push("/users")} button>
         <ListItemIcon>
           <AssignmentInd />
@@ -44,13 +44,13 @@ const ListComponent = (props) => {
         <ListItemIcon>
           <MenuBook />
         </ListItemIcon>
-        <ListItemText primary="Audio Books" />
+        <ListItemText primary="Edit Audio Books" />
       </ListItem>
       <ListItem onClick={() => props.history.push("/chapters")} button>
         <ListItemIcon>
           <Pages />
         </ListItemIcon>
-        <ListItemText primary="Chapters" />
+        <ListItemText primary="View Audio Books" />
       </ListItem>
       <Divider />
       <ListItem onClick={() => props.history.push("/addAudioBook")} button>

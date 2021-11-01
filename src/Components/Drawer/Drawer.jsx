@@ -31,6 +31,7 @@ import SingleBook from "../Contribution/SingleBook";
 import Contribution from "../Contribution/Contribution";
 import UnapprovedChapter from "../Contribution/UnapprovedChapter";
 import User from "../User/User";
+import EditChapter from "../Chapter/EditChapter";
 
 export default function NavDrawer(props) {
   const { window } = props;
@@ -121,6 +122,7 @@ export default function NavDrawer(props) {
           <Route path="/books" render={() => <ViewAudioBooks />} />
           <Route path="/chapters" render={() => <Chapter />} />
           <Route path="/viewChapters/:id" render={() => <ViewChapter />} />
+          <Route path="/edit_chapter/:id" render={() => <EditChapter />} />
           <Route path="/singleChapter/:id" render={() => <SingleChapter />} />
           <Route path="/singleUnapprovedChapter/:id" render={() => <ViewChapterContribution />} />
           <Route path="/addChapter/:id" render={() => <AddChapter />} />

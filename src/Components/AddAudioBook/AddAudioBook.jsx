@@ -24,7 +24,7 @@ const AddAudioBook = () => {
   const [narrator, setNarrator] = useState("");
   const [contributor, setContributor] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImg] = useState(null);
+  const [image, setImg] = useState("");
   const [subCategory, setSubCategory] = React.useState("");
   const [genre, setGenre] = React.useState([]);
   const [subCategorySelect, setSubCategorySelect] = React.useState("");
@@ -167,7 +167,7 @@ const AddAudioBook = () => {
                 <Grid align="center" style={{marginTop:10}}  item xs={12} lg={6}>
                   <CategorySelect
                     genre={genre}
-                    setGenre={(e) => setGenre(e.target.value)}
+                    setGenre={(e)=>setGenre(e.target.value)}
                   />
                 </Grid>
               )}
@@ -186,9 +186,11 @@ const AddAudioBook = () => {
               </Grid>
               <Grid item xs={12}>
                 <ImageInput
+                  inputType={"IMAGE"}
                   nameAttr={"BookImage"}
                   idAttr={"book-img"}
                   uploadText={"jpeg/jpg/png/gif"}
+                  accept=".jpg,image/*"
                   getter={image}
                   setter={(e) => setImg(e.target.files[0])}
                   helperText={", size limit: 40 mb"}

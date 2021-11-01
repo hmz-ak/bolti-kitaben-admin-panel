@@ -25,6 +25,8 @@ const SingleAudioBook = () => {
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImg] = useState(null);
+  const [contributor, setContributor] = useState("");
+
   const [subCategory, setSubCategory] = React.useState("");
   const [genre, setGenre] = React.useState([]);
   const [subCategorySelect, setSubCategorySelect] = React.useState("");
@@ -57,6 +59,7 @@ const SingleAudioBook = () => {
       })
       .catch((err) => console.log(err));
   }, [parentCategory]);
+
   useEffect(() => {
     console.log(id.id);
     bookService
@@ -68,7 +71,9 @@ const SingleAudioBook = () => {
         setNarrator(data.narrator);
         setDescription(data.description);
         setTitleUrdu(data.titleUrdu);
+        setContributor(data.contributor);
         setParentCategory(data.categories);
+        console.log(data.genre)
         setGenre([...data.genre]);
         setSubCategorySelect(data.subCategory);
       })
@@ -85,48 +90,63 @@ const SingleAudioBook = () => {
         <Grid container>
           <Grid item xs={12}>
             <Grid align={isMobile ? "center" : "left"} container>
-              <Grid item xs={12} lg={3}>
+            <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
                 <TextField
-                  style={isMobile ? { width: "100%" } : {}}
+                  style={{ width: "80%" } }
                   required
                   id="standard-required"
-                  label="Book Title"
+                  label="Book Title English"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} lg={3}>
+
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
                 <TextField
-                  style={isMobile ? { width: "100%" } : {}}
+                  style={{ width: "80%" } }
+                  required
                   id="standard-required"
                   label="Book Title Urdu"
                   value={titleUrdu}
                   onChange={(e) => setTitleUrdu(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} lg={3}>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
                 <TextField
-                  style={isMobile ? { width: "100%" } : {}}
+                  style={{ width: "80%" } }
+                  required
                   id="standard-required"
                   label="Narrator"
                   value={narrator}
                   onChange={(e) => setNarrator(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} lg={3}>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
                 <TextField
-                  style={isMobile ? { width: "100%" } : {}}
+                  style={{ width: "80%" }}
                   required
+                  fullWidth
+                  id="standard-required"
+                  label="Contributor"
+                  value={contributor}
+                  onChange={(e) => setContributor(e.target.value)}
+                />
+              </Grid>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
+                <TextField
+                  style={{ width: "80%" }}
+                  required
+                  fullWidth
                   id="standard-required"
                   label="Author Name"
                   onChange={(e) => setAuthor(e.target.value)}
                   value={author}
                 />
               </Grid>
-              <Grid item xs={12} lg={4}>
-                <FormControl style={{ width: "60%", marginTop: 20 }}>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
+                <FormControl style={{ width: "80%" }}>
                   <InputLabel id="demo-mutiple-chip-label">
-                    Parent Category
+                    Parent Category/level 1
                   </InputLabel>
                   <Select
                     native
@@ -146,11 +166,11 @@ const SingleAudioBook = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} lg={4}>
+              <Grid align="center" style={{marginTop:10}} item xs={12} lg={6}>
                 {trigger && (
-                  <FormControl style={{ width: "60%", marginTop: 20 }}>
+                  <FormControl style={{ width: "80%" }}>
                     <InputLabel id="demo-mutiple-chip-label">
-                      Sub Category
+                      Sub Category/ level 2
                     </InputLabel>
                     <Select
                       native
@@ -168,17 +188,17 @@ const SingleAudioBook = () => {
                 )}
               </Grid>
               {trigger && (
-                <Grid style={{ marginTop: 20 }} item xs={12} lg={4}>
+                <Grid align="center" style={{marginTop:10}}  item xs={12} lg={6}>
                   <CategorySelect
                     genre={genre}
-                    setGenre={(e) => setGenre(e.target.value)}
+                    setGenre={(e)=>setGenre(e.target.value)}
                   />
                 </Grid>
               )}
 
-              <Grid xs={12} item>
+              <Grid align="center"  xs={12} item>
                 <TextField
-                  style={{ width: "100%", marginTop: 40 }}
+                  style={{ width: "90%", marginTop: 40 }}
                   id="outlined-multiline-static"
                   label="Enter Book Description"
                   multiline
@@ -190,6 +210,7 @@ const SingleAudioBook = () => {
               </Grid>
               <Grid item xs={12}>
                 <ImageInput
+                  inputType={"IMAGE"}
                   nameAttr={"BookImage"}
                   idAttr={"book-img"}
                   uploadText={"jpeg/jpg/png/gif"}
@@ -210,6 +231,7 @@ const SingleAudioBook = () => {
                     formData.append("titleUrdu", titleUrdu);
                     formData.append("author", author);
                     formData.append("narrator", narrator);
+                    formData.append("contributor", contributor);
                     formData.append("image", image);
                     formData.append("description", description);
                     formData.append("categories", parentCategory);

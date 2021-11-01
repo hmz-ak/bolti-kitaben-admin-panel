@@ -117,6 +117,7 @@ const UnapprovedChapters = (props) => {
                 : rows
               ).map((row, index) => {
                 if (row.approved == false) {
+                
                   return (
                     <TableRow key={row._id}>
                       <TableCell component="th" scope="row">
@@ -140,6 +141,7 @@ const UnapprovedChapters = (props) => {
                     </TableRow>
                   );
                 }
+                
               })}
 
               {emptyRows > 0 && (

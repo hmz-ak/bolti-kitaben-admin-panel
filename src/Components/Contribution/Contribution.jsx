@@ -40,7 +40,7 @@ const Contribution = (props) => {
   const classes = useStyles();
   useEffect(() => {
     bookService
-      .getBook()
+      .getUnapprovedBook()
       .then((data) => {
         setRows(data);
         setRowsAfterSearch(data);

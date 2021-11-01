@@ -9,6 +9,7 @@ import {
   TableRow,
   TablePagination,
   TableFooter,
+  Chip,
   Button,
   Paper,
   TableBody,
@@ -105,7 +106,9 @@ const ViewChapter = (props) => {
                   <TableRow>
                     <TableCell>No.</TableCell>
                     <TableCell align="left">Chapter Name</TableCell>
+                    <TableCell align="left">Status</TableCell>
                     <TableCell align="left">View</TableCell>
+                    <TableCell align="left">Edit/Delete</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -122,6 +125,7 @@ const ViewChapter = (props) => {
                       </TableCell>
 
                       <TableCell align="left">{row.title}</TableCell>
+                      <TableCell align="left">{<Chip style={row.approved?{backgroundColor:"green",color:"white"}:{backgroundColor:"red",color:"white"}} label={row.approved?"approved":"not approved"}/>}</TableCell>
                       <TableCell align="left">
                         <Button
                           size="small"
@@ -131,6 +135,18 @@ const ViewChapter = (props) => {
                           style={{ backgroundColor: "#097481", color: "white" }}
                         >
                           View This Chapter
+                        </Button>
+                       
+                      </TableCell>
+                      <TableCell>
+                      <Button
+                          size="small"
+                          onClick={(e) => {
+                            props.history.push('/edit_chapter/'+row._id)
+                          }}
+                          style={{ backgroundColor: "darkorange", color: "white",marginRight:10 }}
+                        >
+                          Edit
                         </Button>
                         <Button
                           size="small"
