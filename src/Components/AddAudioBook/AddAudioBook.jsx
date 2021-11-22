@@ -178,6 +178,7 @@ const AddAudioBook = () => {
                   id="outlined-multiline-static"
                   label="Enter Book Description"
                   multiline
+                  inputProps={{ maxLength:800 }}
                   rows={10}
                   onChange={(e) => setDescription(e.target.value)}
                   value={description}
@@ -202,44 +203,51 @@ const AddAudioBook = () => {
                   color="primary"
                   variant="contained"
                   onClick={() => {
-                    console.log(image);
-                    const formData = new FormData();
-                    formData.append("title", title);
-                    formData.append("titleUrdu", titleUrdu);
-                    formData.append("narrator", narrator);
-                    formData.append("contributor", contributor);
-                    formData.append("author", author);
-                    formData.append("image", image);
-                    formData.append("description", description);
-                    formData.append("categories", parentCategory);
-                    formData.append("subCategory", subCategorySelect);
-                    for (var i = 0; i < genre.length; i++) {
-                      formData.append("genre[]", genre[i]);
-                    }
-                    // for (var key of formData.entries()) {
-                    //   console.log(key[0] + ", " + key[1]);
-                    // }
-                    bookService
-                      .addBook(formData, config)
-                      .then((res) => {
-                        console.log(res);
-                        toast.success("Book Added Successfully", {
-                          position: toast.POSITION.TOP_CENTER,
-                        });
-                        setTitle("");
-                        setTitleUrdu("");
-                        setAuthor("");
-                        setImg(null);
-                        setDescription("");
-                        setGenre([]);
-                        setParentCategory("");
-                        setSubCategorySelect("");
-                      })
-                      .catch((err) => {
-                        toast.error(err?.response.data, {
-                          position: toast.POSITION.TOP_CENTER,
-                        });
+                    if(description.length < 300){
+                      toast.error("Book Description should be atleast 300 characters long", {
+                        position: toast.POSITION.TOP_CENTER,
                       });
+                    }else{
+                      console.log(image);
+                      const formData = new FormData();
+                      formData.append("title", title);
+                      formData.append("titleUrdu", titleUrdu);
+                      formData.append("narrator", narrator);
+                      formData.append("contributor", contributor);
+                      formData.append("author", author);
+                      formData.append("image", image);
+                      formData.append("description", description);
+                      formData.append("categories", parentCategory);
+                      formData.append("subCategory", subCategorySelect);
+                      for (var i = 0; i < genre.length; i++) {
+                        formData.append("genre[]", genre[i]);
+                      }
+                      // for (var key of formData.entries()) {
+                      //   console.log(key[0] + ", " + key[1]);
+                      // }
+                      bookService
+                        .addBook(formData, config)
+                        .then((res) => {
+                          console.log(res);
+                          toast.success("Book Added Successfully", {
+                            position: toast.POSITION.TOP_CENTER,
+                          });
+                          setTitle("");
+                          setTitleUrdu("");
+                          setAuthor("");
+                          setImg(null);
+                          setDescription("");
+                          setGenre([]);
+                          setParentCategory("");
+                          setSubCategorySelect("");
+                        })
+                        .catch((err) => {
+                          toast.error(err?.response.data, {
+                            position: toast.POSITION.TOP_CENTER,
+                          });
+                        });
+                    }
+                    
                   }}
                 >
                   Add Book
